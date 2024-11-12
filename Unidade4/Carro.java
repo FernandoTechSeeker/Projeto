@@ -15,10 +15,36 @@ public class Carro extends Veiculo{
     }
 
     public void abrirPortaMalas(){
+        System.out.println("Abrindo porta malas....");
 
     }
     public void fecharPortaMalas(){
-
+        System.out.println("Fechando porta malas....");
     }
-    
+    public int getnPortas() {
+        return nPortas;
+    }
+    public String getTipoCombustivel() {
+        return tipoCombustivel;
+    }
+    public int getCapacidadePortaMalas() {
+        return capacidadePortaMalas;
+    }
+    public void setnPortas(int nPortas) {
+        this.nPortas = nPortas;
+    }
+    public void setTipoCombustivel(String tipoCombustivel) {
+        this.tipoCombustivel = tipoCombustivel;
+    }
+    public void setCapacidadePortaMalas(int capacidadePortaMalas) {
+        this.capacidadePortaMalas = capacidadePortaMalas;
+    }
+
+    @Override
+    public void exibirInformacoes() {
+        super.exibirInformacoes();  
+        System.out.println("Numero de portas:            "+nPortas);
+        System.out.println("Tipo de combustivél:         "+tipoCombustivel);
+        System.out.println("Capacidade do porta malas:   "+capacidadePortaMalas+" Litros");
+    }
 }
