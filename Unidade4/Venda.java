@@ -43,7 +43,7 @@ public class Venda {
     public void exibirDetalhesVendas(){
         System.out.println("Detalhe da Venda: ");
         System.out.println("Veiculo: "+veiculo.getModelo()+ " - Ano: "+veiculo.getAno());
-        System.out.println("Comprador: "+comprador.getNome()+ "contato: "+comprador.getTel());
+        System.out.println("Comprador: "+comprador.getNome()+ " contato: "+comprador.getTel());
         System.out.println("Valor da venda: R$"+valor);
         System.out.println("Data da venda: "+ dataVenda);
     }
