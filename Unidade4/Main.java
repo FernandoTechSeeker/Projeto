@@ -40,7 +40,7 @@ public class Main {
                     comprarVeiculo(scanner);
                     break;
                 case 3:
-                    venderVeiculo();
+                    venderVeiculo(scanner);
                     break;
                 case 4:
                     cadrastrarCliente(scanner);
@@ -107,6 +107,9 @@ public class Main {
         scanner.nextLine();
 
         while (escolha != 0) {
+            System.out.println("Digite a marca do veículo: ");
+            String marca = scanner.nextLine();
+
             System.err.println("Digite o modelo do veiculo: ");
             String modelo = scanner.nextLine();
 
@@ -115,7 +118,8 @@ public class Main {
 
             System.out.println("Digite a cor do veículo: ");
             String cor = scanner.nextLine();
-
+            scanner.nextLine();
+           
             System.out.println("Digite o preço do veículo: ");
             double preco = scanner.nextDouble();
 
@@ -134,6 +138,7 @@ public class Main {
                     Carro carro = new Carro(tipoCombustivel, modelo, ano, cor, preco, nPortas, tipoCombustivel, capacidadePortaMalas);
                     carros.add(carro);
                     System.out.println("Carro modelo: "+modelo+" cadastrado com sucesso:");
+                    escolha = 0;
                     break;
 
                 case 2:
@@ -156,6 +161,7 @@ public class Main {
                 Moto moto = new Moto(partida, modelo, ano, cor, preco, cilindradas, partidaEletrica, categoria);
                 motos.add(moto);
                 System.out.println("<Moto modelo: "+modelo+" cadastrada com sucesso:");
+                escolha = 0;
                 default:
                 System.out.println("Opção Inválida! Tente novamente.");
 
@@ -165,11 +171,73 @@ public class Main {
     }
     
      
-    private static void venderVeiculo() {
-        
+    private static void venderVeiculo(Scanner scanner) {
+        if (clientes.isEmpty() || (carros.isEmpty() && motos.isEmpty())) {
+            if (clientes.isEmpty()) {
+                System.out.println("Não há clientes na base de dados!");
+            }
+            if (carros.isEmpty()) {
+                System.out.println("Não há carros disponiveis para vendas!");
+            }
+            if (motos.isEmpty()) {
+                System.out.println("Não há motos disponiveis para vendas!");
+            }
+        }else{
+            mostrarClientes();
+            Pessoa comprador = clientes.get(scanner.nextInt()-1);
+            scanner.nextLine();
+
+            System.out.println("Informe o valor da venda: R$");
+            double valor = scanner.nextDouble();
+            scanner.nextLine();
+
+            int escolha; 
+
+            System.out.println("Qual o novo veículo deseja vender? ");
+            System.out.println("1 - Carro");
+            System.out.println("2 - Moto");
+            escolha = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (escolha) {
+                case 1:
+                    mostrarCarros();
+                    Carro carroParaVenda = carros.get(scanner.nextInt() -1);
+                    scanner.nextLine();
+
+                    Venda novaVendaCarro = new Venda(carroParaVenda, comprador, valor, LocalDateTime.now());
+                    vendas.add(novaVendaCarro);
+                    carros.remove(carroParaVenda);
+                    break;
+                case 2:
+                    mostrarMotos();
+                    Moto motoParaVenda = motos.get(scanner.nextInt() -1);
+                    scanner.nextLine();
+
+                    Venda novaVendaMoto = new Venda(motoParaVenda, comprador, valor, LocalDateTime.now());
+                    vendas.add(novaVendaMoto);
+                    motos.remove(motoParaVenda);
+
+                
+                    break;
+            }
+            System.out.println("Venda executada com sucesso! ");
+        }
     }
                           
-     
+    private static void mostrarClientes(){
+        if (!clientes.isEmpty()) {
+            System.out.println("### Lista de clientes:  ###");
+            int x = 1;
+            for (Pessoa cliente : clientes) {
+                System.out.println(x+" -  "+cliente.getNome()+" - "+cliente.getTel());
+                x++;
+            }
+        }else{
+            System.out.println("Nenhum cliente foi encontrado!");
+        }
+
+    }
     private static void cadrastrarCliente(Scanner scanner) {
         System.out.println("### Cadastro Cliente");
 
@@ -200,13 +268,13 @@ public class Main {
         Pessoa novoCliente = new Pessoa(nome, idade, end, tel, email, altura, peso);
         clientes.add(novoCliente);
 
-        System.out.println("O Cliente: "+nome+", for cadatradp com sucesso!");
+        System.out.println("O Cliente: "+nome+", for cadatrad com sucesso!");
     }
     
     
     private static void gerarRelatorio() {
         if (vendas.isEmpty()) {
-            System.out.println("Nãp existem vendas cadastradas! ");
+            System.out.println("Não existem vendas cadastradas! ");
         }else{
             System.out.println(" ### Relatório de vendas ###");
             System.out.println();
