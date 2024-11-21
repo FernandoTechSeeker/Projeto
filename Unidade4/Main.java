@@ -25,6 +25,7 @@ public class Main {
                 System.out.println("4 - Cadastrar Cliente ");
                 System.out.println("5 - Gerar Relatório ");
                 System.out.println("6 - Mostrar Clientes ");
+                System.out.println("7 - Sugerir Veículo por Biotipo do Cliente");
                 System.out.println("0 - Sair ");
                 System.out.println("Escolha uma opção: ");
                 escolha = scanner.nextInt();
@@ -48,6 +49,24 @@ public class Main {
                         break;
                     case 6:
                         mostrarClientes();
+                        case 7:
+    if (!clientes.isEmpty()) {
+        mostrarClientes(); // Exibe a lista de clientes
+        System.out.println("Escolha um cliente pelo índice: ");
+        int indice = scanner.nextInt();
+        scanner.nextLine(); // Limpa o buffer
+
+        if (indice > 0 && indice <= clientes.size()) {
+            Pessoa clienteEscolhido = clientes.get(indice - 1);
+            sugerirVeiculoPorBiotipo(clienteEscolhido);
+        } else {
+            System.out.println("Erro: Cliente não encontrado!");
+        }
+    } else {
+        System.out.println("Não há clientes cadastrados para sugerir veículos.");
+    }
+    break;
+
                     case 0:
                         System.out.println("Fechando o programa...");
                         break;
@@ -67,14 +86,7 @@ public class Main {
     }
 
     private static void mostrarVeiculos() {
-        mostrarCarros();
-        System.out.println("--------------------------");
-        mostrarMotos();
-        System.out.println("--------------------------");
-        mostrarVans();
-    }
-
-    private static void mostrarCarros() {
+      
         if (!carros.isEmpty()) {
             System.out.println("### Lista de carros: ###");
             int x = 1;
@@ -85,9 +97,9 @@ public class Main {
         } else {
             System.out.println("Nenhum carro foi encontrado!");
         }
-    }
-
-    private static void mostrarMotos() {
+        System.out.println("--------------------------");
+    
+        
         if (!motos.isEmpty()) {
             System.out.println("### Lista de motos: ###");
             int x = 1;
@@ -98,9 +110,9 @@ public class Main {
         } else {
             System.out.println("Nenhuma moto foi encontrada!");
         }
-    }
-
-    private static void mostrarVans() {
+        System.out.println("--------------------------");
+    
+        
         if (!vans.isEmpty()) {
             System.out.println("### Lista de vans: ###");
             int x = 1;
@@ -112,22 +124,7 @@ public class Main {
             System.out.println("Nenhuma van foi encontrada!");
         }
     }
-    private static void mostrarClientes() {
-            if (!clientes.isEmpty()) {
-                System.out.println("### Lista de clientes cadastrados: ###");
-                int x = 1;
-                for (Pessoa cliente : clientes) {
-                    System.out.println(x + " - Nome: " + cliente.getNome() + " | Telefone: " + cliente.getTel());
-                    x++;
-                }
-            } else {
-                System.out.println("Nenhum cliente cadastrado no sistema!");
-            }
-        }
-        
-      
     
-
     private static void comprarVeiculo(Scanner scanner) {
         try {
             System.out.println("### Compra de Veículo ###");
@@ -234,78 +231,116 @@ public class Main {
                     System.out.println("Não há clientes na base de dados!");
                 }
                 if (carros.isEmpty()) {
-                    System.out.println("Não há carros disponíveis para vendas!");
+                    System.out.println("Não há carros disponíveis para venda!");
                 }
                 if (motos.isEmpty()) {
-                    System.out.println("Não há motos disponíveis para vendas!");
+                    System.out.println("Não há motos disponíveis para venda!");
                 }
                 if (vans.isEmpty()) {
-                    System.out.println("Não há vans disponíveis para vendas!");
+                    System.out.println("Não há vans disponíveis para venda!");
                 }
             } else {
+                // Mostrar clientes para escolher um comprador
                 mostrarClientes();
+                System.out.println("Escolha o cliente pelo índice: ");
                 Pessoa comprador = clientes.get(scanner.nextInt() - 1);
                 scanner.nextLine();
-
-                System.out.println("Informe o valor da venda: R$");
+    
+                System.out.println("Informe o valor da venda: R$ ");
                 double valor = scanner.nextDouble();
                 scanner.nextLine();
-
-                int escolha;
-
-                System.out.println("Qual o veículo deseja vender? ");
+    
+                // Perguntar qual veículo deseja vender
+                System.out.println("Qual o tipo de veículo a ser vendido?");
                 System.out.println("1 - Carro");
                 System.out.println("2 - Moto");
                 System.out.println("3 - Van");
-                escolha = scanner.nextInt();
+                int escolha = scanner.nextInt();
                 scanner.nextLine();
-
+    
                 switch (escolha) {
                     case 1:
-                        mostrarCarros();
-                        Carro carroParaVenda = carros.get(scanner.nextInt() - 1);
-                        scanner.nextLine();
-
-                        Venda novaVendaCarro = new Venda(carroParaVenda, comprador, valor, LocalDateTime.now());
-                        vendas.add(novaVendaCarro);
-                        carros.remove(carroParaVenda);
+                        if (!carros.isEmpty()) {
+                          
+                            System.out.println("### Lista de Carros: ###");
+                            int x = 1;
+                            for (Carro carro : carros) {
+                                System.out.println(x + " - " + carro.getModelo() + " | Ano: " + carro.getAno() + " | Preço: R$" + carro.getPreco());
+                                x++;
+                            }
+                            System.out.println("Escolha o carro pelo índice: ");
+                            Carro carroParaVenda = carros.get(scanner.nextInt() - 1);
+                            scanner.nextLine();
+    
+                            Venda novaVendaCarro = new Venda(carroParaVenda, comprador, valor, LocalDateTime.now());
+                            vendas.add(novaVendaCarro);
+                            carros.remove(carroParaVenda);
+                            System.out.println("Venda realizada com sucesso!");
+                        } else {
+                            System.out.println("Não há carros disponíveis para venda!");
+                        }
                         break;
-
+    
                     case 2:
-                        mostrarMotos();
-                        Moto motoParaVenda = motos.get(scanner.nextInt() - 1);
-                        scanner.nextLine();
-
-                        Venda novaVendaMoto = new Venda(motoParaVenda, comprador, valor, LocalDateTime.now());
-                        vendas.add(novaVendaMoto);
-                        motos.remove(motoParaVenda);
+                        if (!motos.isEmpty()) {
+                            
+                            System.out.println("### Lista de Motos: ###");
+                            int x = 1;
+                            for (Moto moto : motos) {
+                                System.out.println(x + " - " + moto.getModelo() + " | Ano: " + moto.getAno() + " | Preço: R$" + moto.getPreco());
+                                x++;
+                            }
+                            System.out.println("Escolha a moto pelo índice: ");
+                            Moto motoParaVenda = motos.get(scanner.nextInt() - 1);
+                            scanner.nextLine();
+    
+                            Venda novaVendaMoto = new Venda(motoParaVenda, comprador, valor, LocalDateTime.now());
+                            vendas.add(novaVendaMoto);
+                            motos.remove(motoParaVenda);
+                            System.out.println("Venda realizada com sucesso!");
+                        } else {
+                            System.out.println("Não há motos disponíveis para venda!");
+                        }
                         break;
-
+    
                     case 3:
-                        mostrarVans();
-                        Van vanParaVenda = vans.get(scanner.nextInt() - 1);
-                        scanner.nextLine();
-
-                        Venda novaVendaVan = new Venda(vanParaVenda, comprador, valor, LocalDateTime.now());
-                        vendas.add(novaVendaVan);
-                        vans.remove(vanParaVenda);
+                        if (!vans.isEmpty()) {
+                            
+                            System.out.println("### Lista de Vans: ###");
+                            int x = 1;
+                            for (Van van : vans) {
+                                System.out.println(x + " - " + van.getModelo() + " | Ano: " + van.getAno() + " | Preço: R$" + van.getPreco());
+                                x++;
+                            }
+                            System.out.println("Escolha a van pelo índice: ");
+                            Van vanParaVenda = vans.get(scanner.nextInt() - 1);
+                            scanner.nextLine();
+    
+                            Venda novaVendaVan = new Venda(vanParaVenda, comprador, valor, LocalDateTime.now());
+                            vendas.add(novaVendaVan);
+                            vans.remove(vanParaVenda);
+                            System.out.println("Venda realizada com sucesso!");
+                        } else {
+                            System.out.println("Não há vans disponíveis para venda!");
+                        }
                         break;
-
+    
                     default:
-                        System.out.println("Opção Inválida! Tente novamente.");
+                        System.out.println("Opção inválida!");
                         break;
                 }
-                System.out.println("Venda executada com sucesso!");
             }
         } catch (InputMismatchException e) {
             System.out.println("Erro: Entrada inválida. Certifique-se de inserir os dados corretamente!");
-            scanner.nextLine(); // Limpa o buffer
+            scanner.nextLine(); 
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Erro: Índice inválido. Certifique-se de escolher uma opção correta!");
         } catch (Exception e) {
             System.out.println("Erro desconhecido: " + e.getMessage());
         }
     }
+    
+    
 
     private static void cadastrarCliente(Scanner scanner) {
         try {
@@ -361,4 +396,36 @@ public class Main {
             }
         }
     }
+    private static void mostrarClientes() {
+        if (!clientes.isEmpty()) {
+            System.out.println("### Lista de clientes cadastrados: ###");
+            int x = 1;
+            for (Pessoa cliente : clientes) {
+                System.out.println(x + " - Nome: " + cliente.getNome() + " | Telefone: " + cliente.getTel());
+                x++;
+            }
+        } else {
+            System.out.println("Nenhum cliente cadastrado no sistema!");
+        }
+    }
+    private static void sugerirVeiculoPorBiotipo(Pessoa cliente) {
+        System.out.println("Analisando biotipo do cliente...");
+        System.out.println("Cliente: " + cliente.getNome());
+        System.out.println("Altura: " + cliente.getAltura() + " cm");
+        System.out.println("Peso: " + cliente.getPeso() + " kg");
+        System.out.println("Idade: " + cliente.getIdade() + " anos");
+    
+        // Lógica de sugestão
+        if (cliente.getAltura() > 180 || cliente.getPeso() > 90) {
+            System.out.println("Sugerimos uma Van para o cliente: mais espaçosa e confortável!");
+        } else if (cliente.getIdade() < 25 && cliente.getPeso() < 80) {
+            System.out.println("Sugerimos uma Moto para o cliente: prática e ideal para jovens!");
+        } else {
+            System.out.println("Sugerimos um Carro para o cliente: ideal para uso geral!");
+        }
+    }
+    
+  
+
+
 }
