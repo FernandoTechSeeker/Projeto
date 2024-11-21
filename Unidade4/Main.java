@@ -29,7 +29,7 @@ public class Main {
                 System.out.println("0 - Sair ");
                 System.out.print("Escolha uma opção: ");
                 escolha = scanner.nextInt();
-                scanner.nextLine(); // Limpa o buffer
+                scanner.nextLine(); 
 
                 switch (escolha) {
                     case 1:
@@ -76,7 +76,7 @@ public class Main {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erro: Entrada inválida. Certifique-se de inserir os dados corretamente!");
-                scanner.nextLine(); // Limpa o buffer em caso de erro
+                scanner.nextLine(); 
             } catch (Exception e) {
                 System.out.println("Erro desconhecido: " + e.getMessage());
             }
@@ -128,7 +128,7 @@ public class Main {
             System.out.println("3 - Van");
             System.out.println("0 - Voltar ao menu");
             int escolha = scanner.nextInt();
-            scanner.nextLine(); // Limpa o buffer
+            scanner.nextLine(); 
 
             while (escolha != 0) {
                 System.out.print("Digite a marca do veículo: ");
@@ -192,7 +192,7 @@ public class Main {
             }
         } catch (InputMismatchException e) {
             System.out.println("Erro: Entrada inválida. Certifique-se de inserir os dados corretamente!");
-            scanner.nextLine(); // Limpa o buffer
+            scanner.nextLine(); 
         } catch (Exception e) {
             System.out.println("Erro desconhecido: " + e.getMessage());
         }
@@ -348,7 +348,7 @@ public class Main {
             System.out.println("Cliente: " + nome + " foi cadastrado com sucesso!");
         } catch (InputMismatchException e) {
             System.out.println("Erro: Entrada inválida. Certifique-se de inserir os dados corretamente!");
-            scanner.nextLine(); // Limpa o buffer
+            scanner.nextLine(); 
         } catch (Exception e) {
             System.out.println("Erro desconhecido: " + e.getMessage());
         }
@@ -363,10 +363,10 @@ public class Main {
                 System.out.println("Data: " + venda.getDataVenda());
                 System.out.println("Veículo: " + venda.getVeiculo().getModelo() + " - " + venda.getVeiculo().getAno());
                 System.out.println("Comprador: " + venda.getComprador().getNome() + " - " + venda.getComprador().getTel());
-                System.out.println("Preço de compra: R$ " + venda.getVeiculo().getPreco()); // Preço de compra
-                System.out.println("Preço de venda: R$ " + venda.getValor()); // Preço de venda
+                System.out.println("Preço de compra: R$ " + venda.getVeiculo().getPreco()); 
+                System.out.println("Preço de venda: R$ " + venda.getValor()); 
     
-                // Calcula o resultado (lucro ou prejuízo)
+                
                 double resultado = venda.getValor() - venda.getVeiculo().getPreco();
                 if (resultado >= 0) {
                     System.out.println("Resultado: Lucro de R$ " + resultado);
