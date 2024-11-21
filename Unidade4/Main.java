@@ -6,7 +6,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main { 
+public class Main {
     private static List<Carro> carros = new ArrayList<>();
     private static List<Moto> motos = new ArrayList<>();
     private static List<Pessoa> clientes = new ArrayList<>();
@@ -18,18 +18,18 @@ public class Main {
         int escolha = 0;
         do {
             try {
-                System.out.println("#### Menu Concessionária ");
+                System.out.println("#### Menu Concessionária ####");
                 System.out.println("1 - Mostrar Veículos ");
                 System.out.println("2 - Comprar Veículo ");
                 System.out.println("3 - Vender Veículo ");
                 System.out.println("4 - Cadastrar Cliente ");
                 System.out.println("5 - Gerar Relatório ");
                 System.out.println("6 - Mostrar Clientes ");
-                System.out.println("7 - Sugerir Veículo por Biotipo do Cliente");
+                System.out.println("7 - Sugerir Veículo por Biotipo do Cliente ");
                 System.out.println("0 - Sair ");
-                System.out.println("Escolha uma opção: ");
+                System.out.print("Escolha uma opção: ");
                 escolha = scanner.nextInt();
-                scanner.nextLine();
+                scanner.nextLine(); // Limpa o buffer
 
                 switch (escolha) {
                     case 1:
@@ -49,34 +49,34 @@ public class Main {
                         break;
                     case 6:
                         mostrarClientes();
-                        case 7:
-    if (!clientes.isEmpty()) {
-        mostrarClientes(); // Exibe a lista de clientes
-        System.out.println("Escolha um cliente pelo índice: ");
-        int indice = scanner.nextInt();
-        scanner.nextLine(); // Limpa o buffer
-
-        if (indice > 0 && indice <= clientes.size()) {
-            Pessoa clienteEscolhido = clientes.get(indice - 1);
-            sugerirVeiculoPorBiotipo(clienteEscolhido);
-        } else {
-            System.out.println("Erro: Cliente não encontrado!");
-        }
-    } else {
-        System.out.println("Não há clientes cadastrados para sugerir veículos.");
-    }
-    break;
-
+                        break;
+                   
+                    case 7:
+                    if (!clientes.isEmpty()) {
+                        mostrarClientes();
+                        System.out.println("Escolha um cliente pelo índice: ");
+                        int indice = scanner.nextInt();
+                        scanner.nextLine(); 
+                
+                        if (indice > 0 && indice <= clientes.size()) {
+                            Pessoa clienteEscolhido = clientes.get(indice - 1);
+                            sugerirVeiculoPorBiotipo(clienteEscolhido);
+                        } else {
+                            System.out.println("Erro: Cliente não encontrado!");
+                        }
+                    } else {
+                        System.out.println("Não há clientes cadastrados para sugerir veículos.");
+                    }
+                    break;
                     case 0:
                         System.out.println("Fechando o programa...");
                         break;
                     default:
-                        System.out.println("Opção Inválida! Tente novamente.");
-                        break;
+                        System.out.println("Opção inválida! Tente novamente.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erro: Entrada inválida. Certifique-se de inserir os dados corretamente!");
-                scanner.nextLine(); // Limpa o buffer
+                scanner.nextLine(); // Limpa o buffer em caso de erro
             } catch (Exception e) {
                 System.out.println("Erro desconhecido: " + e.getMessage());
             }
@@ -86,9 +86,8 @@ public class Main {
     }
 
     private static void mostrarVeiculos() {
-      
         if (!carros.isEmpty()) {
-            System.out.println("### Lista de carros: ###");
+            System.out.println("### Lista de Carros: ###");
             int x = 1;
             for (Carro carro : carros) {
                 System.out.println(x + " - " + carro.getModelo() + " - " + carro.getAno());
@@ -97,11 +96,9 @@ public class Main {
         } else {
             System.out.println("Nenhum carro foi encontrado!");
         }
-        System.out.println("--------------------------");
-    
-        
+
         if (!motos.isEmpty()) {
-            System.out.println("### Lista de motos: ###");
+            System.out.println("### Lista de Motos: ###");
             int x = 1;
             for (Moto moto : motos) {
                 System.out.println(x + " - " + moto.getModelo() + " - " + moto.getAno());
@@ -110,11 +107,9 @@ public class Main {
         } else {
             System.out.println("Nenhuma moto foi encontrada!");
         }
-        System.out.println("--------------------------");
-    
-        
+
         if (!vans.isEmpty()) {
-            System.out.println("### Lista de vans: ###");
+            System.out.println("### Lista de Vans: ###");
             int x = 1;
             for (Van van : vans) {
                 System.out.println(x + " - " + van.getModelo() + " - " + van.getAno());
@@ -124,7 +119,7 @@ public class Main {
             System.out.println("Nenhuma van foi encontrada!");
         }
     }
-    
+
     private static void comprarVeiculo(Scanner scanner) {
         try {
             System.out.println("### Compra de Veículo ###");
@@ -133,87 +128,66 @@ public class Main {
             System.out.println("3 - Van");
             System.out.println("0 - Voltar ao menu");
             int escolha = scanner.nextInt();
-            scanner.nextLine();
-
-            if (escolha < 0 || escolha > 3) {
-                throw new InputMismatchException();
-            }
+            scanner.nextLine(); // Limpa o buffer
 
             while (escolha != 0) {
-                System.out.println("Digite a marca do veículo: ");
+                System.out.print("Digite a marca do veículo: ");
                 String marca = scanner.nextLine();
-
-                System.out.println("Digite o modelo do veículo: ");
+                System.out.print("Digite o modelo do veículo: ");
                 String modelo = scanner.nextLine();
-
-                System.out.println("Digite o ano do veículo: ");
+                System.out.print("Digite o ano do veículo: ");
                 int ano = scanner.nextInt();
                 scanner.nextLine();
-
-                System.out.println("Digite a cor do veículo: ");
+                System.out.print("Digite a cor do veículo: ");
                 String cor = scanner.nextLine();
-
-                System.out.println("Digite o preço do veículo: ");
+                System.out.print("Digite o preço do veículo: ");
                 double preco = scanner.nextDouble();
                 scanner.nextLine();
 
                 switch (escolha) {
                     case 1:
-                        System.out.println("Digite o número de portas do veículo: ");
+                        System.out.print("Digite o número de portas do veículo: ");
                         int nPortas = scanner.nextInt();
                         scanner.nextLine();
-
-                        System.out.println("Digite o tipo de combustível: ");
+                        System.out.print("Digite o tipo de combustível: ");
                         String tipoCombustivel = scanner.nextLine();
-
-                        System.out.println("Digite a capacidade do porta-malas do veículo: ");
+                        System.out.print("Digite a capacidade do porta-malas: ");
                         int capacidadePortaMalas = scanner.nextInt();
                         scanner.nextLine();
-
                         Carro carro = new Carro(marca, modelo, ano, cor, preco, nPortas, tipoCombustivel, capacidadePortaMalas);
                         carros.add(carro);
-                        System.out.println("Carro modelo: " + modelo + " cadastrado com sucesso!");
+                        System.out.println("Carro modelo " + modelo + " cadastrado com sucesso!");
                         escolha = 0;
                         break;
-
                     case 2:
-                        System.out.println("Digite as cilindradas do veículo: ");
+                        System.out.print("Digite as cilindradas do veículo: ");
                         int cilindradas = scanner.nextInt();
                         scanner.nextLine();
-
-                        System.out.println("O veículo possui partida elétrica? (S/N)");
+                        System.out.print("O veículo possui partida elétrica? (S/N): ");
                         boolean partidaEletrica = scanner.nextLine().equalsIgnoreCase("S");
-
-                        System.out.println("Digite a categoria do veículo: ");
+                        System.out.print("Digite a categoria do veículo: ");
                         String categoria = scanner.nextLine();
-
                         Moto moto = new Moto(marca, modelo, ano, cor, preco, cilindradas, partidaEletrica, categoria);
                         motos.add(moto);
-                        System.out.println("Moto modelo: " + modelo + " cadastrada com sucesso!");
+                        System.out.println("Moto modelo " + modelo + " cadastrada com sucesso!");
                         escolha = 0;
                         break;
-
                     case 3:
-                        System.out.println("Digite o número de portas do veículo: ");
-                        int numeroDePortas = scanner.nextInt();
+                        System.out.print("Digite o número de portas do veículo: ");
+                        int numeroPortas = scanner.nextInt();
                         scanner.nextLine();
-
-                        System.out.println("Digite o tipo de combustível: ");
+                        System.out.print("Digite o tipo de combustível: ");
                         String tipoCombustivelVan = scanner.nextLine();
-
-                        System.out.println("Digite a quantidade de assentos do veículo: ");
-                        int quantidadeAcentos = scanner.nextInt();
+                        System.out.print("Digite a quantidade de assentos: ");
+                        int quantidadeAssentos = scanner.nextInt();
                         scanner.nextLine();
-
-                        Van van = new Van(marca, modelo, ano, cor, preco, numeroDePortas, tipoCombustivelVan, quantidadeAcentos);
+                        Van van = new Van(marca, modelo, ano, cor, preco, numeroPortas, tipoCombustivelVan, quantidadeAssentos);
                         vans.add(van);
-                        System.out.println("Van modelo: " + modelo + " cadastrada com sucesso!");
+                        System.out.println("Van modelo " + modelo + " cadastrada com sucesso!");
                         escolha = 0;
                         break;
-
                     default:
-                        System.out.println("Opção Inválida! Tente novamente.");
-                        break;
+                        System.out.println("Opção inválida! Tente novamente.");
                 }
             }
         } catch (InputMismatchException e) {
@@ -223,6 +197,7 @@ public class Main {
             System.out.println("Erro desconhecido: " + e.getMessage());
         }
     }
+
 
     private static void venderVeiculo(Scanner scanner) {
         try {
@@ -240,17 +215,18 @@ public class Main {
                     System.out.println("Não há vans disponíveis para venda!");
                 }
             } else {
-                // Mostrar clientes para escolher um comprador
+               
                 mostrarClientes();
                 System.out.println("Escolha o cliente pelo índice: ");
                 Pessoa comprador = clientes.get(scanner.nextInt() - 1);
                 scanner.nextLine();
     
+                
                 System.out.println("Informe o valor da venda: R$ ");
                 double valor = scanner.nextDouble();
                 scanner.nextLine();
     
-                // Perguntar qual veículo deseja vender
+                
                 System.out.println("Qual o tipo de veículo a ser vendido?");
                 System.out.println("1 - Carro");
                 System.out.println("2 - Moto");
@@ -259,9 +235,8 @@ public class Main {
                 scanner.nextLine();
     
                 switch (escolha) {
-                    case 1:
+                    case 1: 
                         if (!carros.isEmpty()) {
-                          
                             System.out.println("### Lista de Carros: ###");
                             int x = 1;
                             for (Carro carro : carros) {
@@ -272,7 +247,7 @@ public class Main {
                             Carro carroParaVenda = carros.get(scanner.nextInt() - 1);
                             scanner.nextLine();
     
-                            Venda novaVendaCarro = new Venda(carroParaVenda, comprador, valor, LocalDateTime.now());
+                            Venda novaVendaCarro = new Venda(carroParaVenda, comprador, valor, carroParaVenda.getPreco(), LocalDateTime.now());
                             vendas.add(novaVendaCarro);
                             carros.remove(carroParaVenda);
                             System.out.println("Venda realizada com sucesso!");
@@ -281,9 +256,8 @@ public class Main {
                         }
                         break;
     
-                    case 2:
+                    case 2: 
                         if (!motos.isEmpty()) {
-                            
                             System.out.println("### Lista de Motos: ###");
                             int x = 1;
                             for (Moto moto : motos) {
@@ -294,7 +268,7 @@ public class Main {
                             Moto motoParaVenda = motos.get(scanner.nextInt() - 1);
                             scanner.nextLine();
     
-                            Venda novaVendaMoto = new Venda(motoParaVenda, comprador, valor, LocalDateTime.now());
+                            Venda novaVendaMoto = new Venda(motoParaVenda, comprador, valor, motoParaVenda.getPreco(), LocalDateTime.now());
                             vendas.add(novaVendaMoto);
                             motos.remove(motoParaVenda);
                             System.out.println("Venda realizada com sucesso!");
@@ -303,9 +277,8 @@ public class Main {
                         }
                         break;
     
-                    case 3:
+                    case 3: 
                         if (!vans.isEmpty()) {
-                            
                             System.out.println("### Lista de Vans: ###");
                             int x = 1;
                             for (Van van : vans) {
@@ -316,7 +289,7 @@ public class Main {
                             Van vanParaVenda = vans.get(scanner.nextInt() - 1);
                             scanner.nextLine();
     
-                            Venda novaVendaVan = new Venda(vanParaVenda, comprador, valor, LocalDateTime.now());
+                            Venda novaVendaVan = new Venda(vanParaVenda, comprador, valor, vanParaVenda.getPreco(), LocalDateTime.now());
                             vendas.add(novaVendaVan);
                             vans.remove(vanParaVenda);
                             System.out.println("Venda realizada com sucesso!");
@@ -332,14 +305,13 @@ public class Main {
             }
         } catch (InputMismatchException e) {
             System.out.println("Erro: Entrada inválida. Certifique-se de inserir os dados corretamente!");
-            scanner.nextLine(); 
+            scanner.nextLine();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Erro: Índice inválido. Certifique-se de escolher uma opção correta!");
         } catch (Exception e) {
             System.out.println("Erro desconhecido: " + e.getMessage());
         }
     }
-    
     
 
     private static void cadastrarCliente(Scanner scanner) {
@@ -391,11 +363,22 @@ public class Main {
                 System.out.println("Data: " + venda.getDataVenda());
                 System.out.println("Veículo: " + venda.getVeiculo().getModelo() + " - " + venda.getVeiculo().getAno());
                 System.out.println("Comprador: " + venda.getComprador().getNome() + " - " + venda.getComprador().getTel());
-                System.out.println("Valor da venda: R$ " + venda.getValor());
+                System.out.println("Preço de compra: R$ " + venda.getVeiculo().getPreco()); // Preço de compra
+                System.out.println("Preço de venda: R$ " + venda.getValor()); // Preço de venda
+    
+                // Calcula o resultado (lucro ou prejuízo)
+                double resultado = venda.getValor() - venda.getVeiculo().getPreco();
+                if (resultado >= 0) {
+                    System.out.println("Resultado: Lucro de R$ " + resultado);
+                } else {
+                    System.out.println("Resultado: Prejuízo de R$ " + Math.abs(resultado));
+                }
                 System.out.println("----------------------------------------------");
             }
         }
     }
+    
+    
     private static void mostrarClientes() {
         if (!clientes.isEmpty()) {
             System.out.println("### Lista de clientes cadastrados: ###");
@@ -415,7 +398,7 @@ public class Main {
         System.out.println("Peso: " + cliente.getPeso() + " kg");
         System.out.println("Idade: " + cliente.getIdade() + " anos");
     
-        // Lógica de sugestão
+        
         if (cliente.getAltura() > 180 || cliente.getPeso() > 90) {
             System.out.println("Sugerimos uma Van para o cliente: mais espaçosa e confortável!");
         } else if (cliente.getIdade() < 25 && cliente.getPeso() < 80) {
