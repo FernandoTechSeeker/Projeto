@@ -212,34 +212,34 @@ public class Main {
     
     private static void venderVeiculo(Scanner scanner) {
         try {
-            // Verifica se há clientes cadastrados
+            
             if (clientes.isEmpty()) {
                 throw new ClienteNaoEncontradoException("Não há clientes cadastrados na base de dados!");
             }
     
-            // Verifica se há veículos disponíveis
+            
             if (carros.isEmpty() && motos.isEmpty() && vans.isEmpty()) {
                 throw new VeiculoNaoDisponivelException("Nenhum veículo disponível para venda!");
             }
     
-            // Seleciona o cliente
+            
             mostrarClientes();
             System.out.print("Escolha o cliente pelo índice: ");
             int indiceCliente = scanner.nextInt();
             scanner.nextLine();
     
-            // Valida o índice do cliente
+            
             if (indiceCliente < 1 || indiceCliente > clientes.size()) {
                 throw new ClienteNaoEncontradoException("Cliente com índice inválido!");
             }
             Pessoa comprador = clientes.get(indiceCliente - 1);
     
-            // Insere o valor da venda
+            
             System.out.print("Informe o valor da venda: R$ ");
             double valor = scanner.nextDouble();
             scanner.nextLine();
     
-            // Escolhe o tipo de veículo
+            
             System.out.println("Qual o tipo de veículo a ser vendido?");
             System.out.println("1 - Carro");
             System.out.println("2 - Moto");
@@ -248,7 +248,7 @@ public class Main {
             scanner.nextLine();
     
             switch (escolha) {
-                case 1: // Carros
+                case 1: 
                     if (carros.isEmpty()) {
                         throw new VeiculoNaoDisponivelException("Não há carros disponíveis para venda!");
                     }
@@ -272,7 +272,7 @@ public class Main {
                     System.out.println("Venda realizada com sucesso!");
                     break;
     
-                case 2: // Motos
+                case 2: 
                     if (motos.isEmpty()) {
                         throw new VeiculoNaoDisponivelException("Não há motos disponíveis para venda!");
                     }
@@ -296,7 +296,7 @@ public class Main {
                     System.out.println("Venda realizada com sucesso!");
                     break;
     
-                case 3: // Vans
+                case 3: 
                     if (vans.isEmpty()) {
                         throw new VeiculoNaoDisponivelException("Não há vans disponíveis para venda!");
                     }

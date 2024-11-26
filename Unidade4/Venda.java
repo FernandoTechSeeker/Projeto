@@ -17,7 +17,7 @@ public class Venda {
         this.dataVenda = dataVenda;
     }
 
-    // Getters e Setters
+
     public Veiculo getVeiculo() {
         return veiculo;
     }
